@@ -1,0 +1,19 @@
+{
+  "clusters": [
+    {
+      "name": "172.16.10.10",
+      "username": "root",
+      "password": "a",
+      "syncpolicies": [
+        {
+          "source_root_path": "/ifs/data/example",
+          "target_host": "172.16.10.11",
+          "name": "examplepolicy",
+          "target_path": "/ifs/data",
+          "action": "sync",
+          "schedule": "every 1 days every 12 hours between 12:00 AM and 11:59 PM"
+        }
+      ]
+    }
+  ]
+}
