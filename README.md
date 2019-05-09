@@ -34,3 +34,33 @@ python ansible-simple-shares-demo
 ```bash
 ansible-playbook playbook-combined-smb-172.16.10.10.yml
 ```
+## Example
+```
+$ python ansible-simple-synciqpolicies-demo.py
+$ ansible-playbook playbook-simple-synciqpolicies-172.16.10.10.yml
+/home/jim/.local/lib/python2.7/site-packages/requests/__init__.py:91: RequestsDependencyWarning: urllib3 (1.24.1) or chardet (3.0.4) doesn't match a supported version!
+  RequestsDependencyWarning)
+
+PLAY [Isilon New syniq policy with URI module] **********************************************
+
+TASK [Gathering Facts] **********************************************************************
+ok: [localhost]
+
+TASK [get isilon API session IDs] ***********************************************************
+ok: [localhost]
+
+TASK [Create Policy] ************************************************************************
+ok: [localhost]
+
+TASK [Create Policy] ************************************************************************
+ok: [localhost]
+
+TASK [Create Policy] ************************************************************************
+ok: [localhost]
+
+TASK [Delete isilon API session IDs] ********************************************************
+ok: [localhost]
+
+PLAY RECAP **********************************************************************************
+localhost                  : ok=6    changed=0    unreachable=0    failed=0   
+```
