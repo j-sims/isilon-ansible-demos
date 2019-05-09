@@ -1,0 +1,82 @@
+- hosts: localhost
+  name: Isilon New syniq policy with URI module
+  tasks:
+  - name: get isilon API session IDs
+    register: results_login
+    uri:
+      body:
+        password: a
+        services:
+        - platform
+        - namespace
+        username: root
+      body_format: json
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/session/1/session
+      validate_certs: false
+  - name: Create Policy
+    uri:
+      body:
+        action: sync
+        name: example1policy
+        schedule: every 1 days every 12 hours between 12:00 AM and 11:59 PM
+        source_root_path: /ifs/data/example1
+        target_host: 172.16.10.11
+        target_path: /ifs/data
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/3/sync/policies
+      validate_certs: false
+  - name: Create Policy
+    uri:
+      body:
+        action: sync
+        name: example2policy
+        schedule: every 1 days every 12 hours between 12:00 AM and 11:59 PM
+        source_root_path: /ifs/data/example2
+        target_host: 172.16.10.11
+        target_path: /ifs/data
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/3/sync/policies
+      validate_certs: false
+  - name: Create Policy
+    uri:
+      body:
+        action: sync
+        name: example3policy
+        schedule: every 1 days every 12 hours between 12:00 AM and 11:59 PM
+        source_root_path: /ifs/data/example3
+        target_host: 172.16.10.11
+        target_path: /ifs/data
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/3/sync/policies
+      validate_certs: false
+  - name: Delete isilon API session IDs
+    register: results_DEL_cookie
+    uri:
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: DELETE
+      status_code: 204
+      url: https://172.16.10.10:8080/session/1/session
+      validate_certs: false
