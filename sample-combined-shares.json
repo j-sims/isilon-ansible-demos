@@ -1,0 +1,47 @@
+{
+  "clusters": [
+    {
+      "name": "172.16.10.10",
+      "username": "root",
+      "password": "a",
+      "dirs": [ "/ifs/foo" ],
+      "shares": [
+        {
+          "path": "/ifs/data/example1",
+          "permissions": [
+            {
+              "permission_type": "allow",
+              "trustee": {
+                "type": "user",
+                "name": "root"
+              },
+              "permission": "full"
+            }
+          ],
+          "name": "example1",
+          "zone": "system",
+          "description": "example share"
+        }
+      ],
+      "quotas": [
+        {
+          "path": "/ifs/data/example1",
+          "thresholds": {
+            "hard": 10737418240,
+            "soft": 8589934592,
+            "soft_grace": 86400
+          }
+        }
+      ],
+      "snapshotschedules": [
+        {
+          "duration": 608400,
+          "path": "/ifs/data/example1",
+          "schedule": "every 1 days every 1 hours between 12:00 AM and 11:59 PM",
+          "name": "Snapshot schedule 231765081",
+          "pattern": "ScheduleName_duration_%Y-%m-%d_%H:%M"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+- hosts: localhost
+  name: Isilon New NFS Export with URI module
+  tasks:
+  - name: get isilon API session IDs
+    register: results_login
+    uri:
+      body:
+        password: a
+        services:
+        - platform
+        - namespace
+        username: root
+      body_format: json
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/session/1/session
+      validate_certs: false
+  - name: make NFS Export
+    uri:
+      body:
+        description: example export 1
+        paths:
+        - /ifs/data/export1
+        zone: system
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/4/protocols/nfs/exports
+      validate_certs: false
+  - name: make NFS Export
+    uri:
+      body:
+        description: example export 2
+        paths:
+        - /ifs/data/export2
+        zone: system
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/4/protocols/nfs/exports
+      validate_certs: false
+  - name: make NFS Export
+    uri:
+      body:
+        description: example export 3
+        paths:
+        - /ifs/data/export3
+        zone: system
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/4/protocols/nfs/exports
+      validate_certs: false
+  - name: Delete isilon API session IDs
+    register: results_DEL_cookie
+    uri:
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: DELETE
+      status_code: 204
+      url: https://172.16.10.10:8080/session/1/session
+      validate_certs: false

@@ -1,0 +1,26 @@
+{
+  "clusters": [
+    {
+      "name": "172.16.10.10",
+      "username": "root",
+      "password": "a",
+      "exports": [
+        {
+          "paths": [ "/ifs/data/export1" ],
+          "zone": "system",
+          "description": "example export 1"
+        },
+        {
+          "paths": [ "/ifs/data/export2" ],
+          "zone": "system",
+          "description": "example export 2"
+        },
+        {
+          "paths": [ "/ifs/data/export3" ],
+          "zone": "system",
+          "description": "example export 3"
+        }
+      ]
+    }
+  ]
+}

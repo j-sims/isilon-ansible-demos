@@ -1,0 +1,90 @@
+- hosts: localhost
+  name: Isilon New SMB share with URI module
+  tasks:
+  - name: get isilon API session IDs
+    register: results_login
+    uri:
+      body:
+        password: a
+        services:
+        - platform
+        - namespace
+        username: root
+      body_format: json
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/session/1/session
+      validate_certs: false
+  - name: make SMB share
+    uri:
+      body:
+        browsable: true
+        create_path: true
+        description: example share
+        name: example1
+        path: /ifs/data/example1
+        permissions:
+        - permission: full
+          permission_type: allow
+          trustee:
+            name: root
+            type: user
+        zone: system
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/4/protocols/smb/shares
+      validate_certs: false
+  - name: Create Quota
+    uri:
+      body:
+        force: false
+        include_snapshots: false
+        path: /ifs/data/example1
+        thresholds:
+          hard: 10737418240
+          soft: 8589934592
+          soft_grace: 86400
+        thresholds_include_overhead: false
+        type: directory
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/1/quota/quotas
+      validate_certs: false
+  - name: create snapshot schedule
+    uri:
+      body:
+        duration: 608400
+        name: Snapshot schedule 231765081
+        path: /ifs/data/example1
+        pattern: ScheduleName_duration_%Y-%m-%d_%H:%M
+        schedule: every 1 days every 1 hours between 12:00 AM and 11:59 PM
+      body_format: json
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: POST
+      status_code: 201
+      url: https://172.16.10.10:8080/platform/3/snapshot/schedules
+      validate_certs: false
+  - name: Delete isilon API session IDs
+    register: results_DEL_cookie
+    uri:
+      headers:
+        Cookie: isisessid={{ results_login.cookies.isisessid }}
+        X-CSRF-Token: '{{ results_login.cookies.isicsrf }}'
+        referer: https://172.16.10.10:8080
+      method: DELETE
+      status_code: 204
+      url: https://172.16.10.10:8080/session/1/session
+      validate_certs: false

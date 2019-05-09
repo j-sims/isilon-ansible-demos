@@ -1,0 +1,19 @@
+{
+  "clusters": [
+    {
+      "name": "172.16.10.10",
+      "username": "root",
+      "password": "a",
+      "quotas": [
+        {
+          "path": "/ifs/data",
+          "thresholds": {
+            "hard": 10737418240,
+            "soft": 8589934592,
+            "soft_grace": 86400
+          }
+        }
+      ]
+    }
+  ]
+}

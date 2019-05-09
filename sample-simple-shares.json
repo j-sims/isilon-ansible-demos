@@ -1,0 +1,59 @@
+{
+  "clusters": [
+    {
+      "name": "172.16.10.10",
+      "username": "root",
+      "password": "a",
+      "shares": [
+        {
+          "path": "/ifs/example1",
+          "permissions": [
+            {
+              "permission_type": "allow",
+              "trustee": {
+                "type": "user",
+                "name": "root"
+              },
+              "permission": "full"
+            }
+          ],
+          "name": "example1",
+          "zone": "system",
+          "description": "example share"
+        },
+        {
+          "path": "/ifs/example2",
+          "permissions": [
+            {
+              "permission_type": "allow",
+              "trustee": {
+                "type": "user",
+                "name": "root"
+              },
+              "permission": "full"
+            }
+          ],
+          "name": "example2",
+          "zone": "system",
+          "description": "example share"
+        },
+        {
+          "path": "/ifs/example3",
+          "permissions": [
+            {
+              "permission_type": "allow",
+              "trustee": {
+                "type": "user",
+                "name": "root"
+              },
+              "permission": "full"
+            }
+          ],
+          "name": "example3",
+          "zone": "system",
+          "description": "example share"
+        }
+      ]
+    }
+  ]
+}
