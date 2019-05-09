@@ -6,9 +6,25 @@
       "password": "a",
       "syncpolicies": [
         {
-          "source_root_path": "/ifs/data/example",
+          "source_root_path": "/ifs/data/example1",
           "target_host": "172.16.10.11",
-          "name": "examplepolicy",
+          "name": "example1policy",
+          "target_path": "/ifs/data",
+          "action": "sync",
+          "schedule": "every 1 days every 12 hours between 12:00 AM and 11:59 PM"
+        },
+        {
+          "source_root_path": "/ifs/data/example2",
+          "target_host": "172.16.10.11",
+          "name": "example2policy",
+          "target_path": "/ifs/data",
+          "action": "sync",
+          "schedule": "every 1 days every 12 hours between 12:00 AM and 11:59 PM"
+        },
+        {
+          "source_root_path": "/ifs/data/example3",
+          "target_host": "172.16.10.11",
+          "name": "example3policy",
           "target_path": "/ifs/data",
           "action": "sync",
           "schedule": "every 1 days every 12 hours between 12:00 AM and 11:59 PM"
