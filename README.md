@@ -32,7 +32,7 @@ python ansible-simple-shares-demo
 
 4. Execute the newly created playbook:
 ```bash
-ansible-playbook playbook-combined-smb-172.16.10.10.yml
+ansible-playbook playbook-simple-shares-172.16.10.10.yml
 ```
 ## Example
 ```
